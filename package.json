@@ -1,0 +1,38 @@
+{
+    "name": "webterm",
+    "version": "1.0.0",
+    "description": "Production-grade browser-based terminal with real PTY backend",
+    "type": "module",
+    "scripts": {
+        "build": "bun run build.js",
+        "dev": "bun run build && node dist/server.js",
+        "start": "node dist/server.js"
+    },
+    "keywords": [
+        "terminal",
+        "pty",
+        "xterm",
+        "websocket"
+    ],
+    "author": "",
+    "license": "MIT",
+    "dependencies": {
+        "@xterm/addon-fit": "^0.11.0",
+        "@xterm/addon-unicode11": "^0.9.0",
+        "@xterm/addon-web-links": "^0.12.0",
+        "@xterm/addon-webgl": "^0.19.0",
+        "@xterm/xterm": "^6.0.0",
+        "node-pty": "^1.0.0",
+        "ws": "^8.16.0"
+    },
+    "devDependencies": {
+        "@types/node": "^20.10.6",
+        "@types/ws": "^8.5.10",
+        "esbuild": "^0.19.11",
+        "typescript": "^5.3.3",
+        "xterm": "^5.3.0",
+        "xterm-addon-fit": "^0.8.0",
+        "xterm-addon-web-links": "^0.9.0",
+        "xterm-addon-webgl": "^0.16.0"
+    }
+}
