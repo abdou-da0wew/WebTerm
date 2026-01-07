@@ -1,181 +1,231 @@
-# WebTerm
+# **WebTerm**
+Powerful production-grade browser terminal with real PTY backend, streaming I/O, secure authentication, file transfer, and full TTY capabilities.
 
-Production-grade browser-based terminal with real PTY backend. Access a fully functional shell session through your browser with streaming I/O, file transfer, and complete TTY behavior.
+<p align="left">
 
-## Features
+![Language](https://img.shields.io/badge/Language-TypeScript-3178C6?style=for-the-badge&logo=typescript)
+![Runtime](https://img.shields.io/badge/Node.js-18%2B-339933?style=for-the-badge&logo=node.js)
+![Build Tool](https://img.shields.io/badge/Bun-Required-000000?style=for-the-badge&logo=bun)
+![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)
+![Last Commit](https://img.shields.io/github/last-commit/abdou-da0wew/WebTerm?style=for-the-badge)
+![Maintained](https://img.shields.io/badge/Maintained-Yes-success?style=for-the-badge)
 
-- **Real PTY Backend**: Uses `node-pty` for authentic shell behavior
-- **Full Shell Support**: Works with vim, nano, top, htop, and any terminal application
-- **Auto Shell Detection**: Automatically detects and uses your default shell (bash/zsh)
-- **File Transfer**: Drag & drop file upload support
-- **Single File Deployment**: Entire application bundled into one executable JavaScript file
-- **Security**: Token-based authentication with HMAC-SHA256
-- **Performance**: WebSocket streaming with near-zero latency
-- **Terminal Features**: Colors, cursor movement, tab completion, history, signals (CTRL+C, CTRL+Z)
+</p>
 
-## Requirements
+---
 
-- **Node.js**: v18+ (Required for runtime execution)
-- **Bun**: Package manager & Build tool (Required for building)
+## ⭐ Introduction
+WebTerm delivers a fully interactive shell experience directly in your browser. Powered by a real PTY backend, it enables true terminal behavior, low-latency streaming, secure access, modern terminal applications, and reliable production-ready usage.
 
-## Installation
+---
 
+## 🔗 Quick Navigation
+- [Features](#️-features)
+- [Requirements](#-requirements)
+- [Installation](#-installation)
+- [Build](#-build)
+- [Run](#-run)
+- [Configuration](#-configuration)
+- [Usage](#-usage)
+- [Security Notes](#-security-notes)
+- [Architecture](#-architecture)
+- [Troubleshooting](#-troubleshooting)
+- [Development](#-development)
+- [License](#-license)
+- [Technical Details](#-technical-details)
+
+---
+
+## ⚙️ Features
+- 🚀 **Real PTY Backend** — Powered by `node-pty` for authentic shell execution  
+- 🖥️ **Full Shell Support** — Works with `vim`, `nano`, `top`, `htop`, and more  
+- 🔍 **Auto Shell Detection** — Automatically selects your system’s default shell  
+- 📂 **File Transfer** — Drag and drop uploads directly into the current directory  
+- 📦 **Single File Deployment** — Fully bundled into one JavaScript executable  
+- 🔐 **Security** — Token authentication using HMAC-SHA256  
+- ⚡ **Performance** — WebSocket streaming with near-zero latency  
+- 🎨 **Terminal Features** — Colors, cursor movement, history, tab completion, signals (CTRL+C, CTRL+Z, EOF)
+
+---
+
+## 📋 Requirements
+| Dependency | Purpose |
+|-----------|--------|
+| **Node.js v18+** | Runtime execution |
+| **Bun** | Package manager & build tool |
+
+---
+
+## 🛠 Installation
 ```bash
-# Clone or navigate to the project directory
 cd WebTerm
-
-# Install dependencies using Bun
 bun install
-```
+````
 
-## Build
+---
+
+## 🏗 Build
 
 ```bash
-# Build the project (creates dist/server.js)
 bun run build
 ```
 
-## Run
+Generates: `dist/server.js`
+
+---
+
+## ▶️ Run
 
 ```bash
-# Start the server (uses Node.js)
 bun run start
-
-# Or run directly
+# or
 node dist/server.js
 ```
 
-The server will output a URL with an authentication token:
+Expected output:
 
 ```
-╔═══════════════════════════════════════════════════╗
-║                    WebTerm                        ║
-╚═══════════════════════════════════════════════════╝
-
 🚀 Server running on http://localhost:3000
-
-📋 Copy this URL to your browser:
-   http://localhost:3000/?token=1234567890abcdef...
-
-⏰ Token expires at: 1/6/2026, 7:50:31 AM
-
-💡 Tip: Set AUTH_SECRET environment variable to persist tokens
+http://localhost:3000/?token=1234567890abcdef...
+⏰ Token expires at: ...
+💡 Tip: Set AUTH_SECRET to persist tokens
 ```
 
-Open the URL in your browser to access the terminal.
+> Open the generated URL in your browser to launch WebTerm.
 
-## Configuration
+---
 
-Create a `.env` file (use `.env.example` as template):
+## ⚙️ Configuration
+
+Create `.env` (based on `.env.example`):
 
 ```bash
-# Authentication secret (auto-generated if not set)
 AUTH_SECRET=your-random-secret-key-here
-
-# Server port (default: 3000)
 PORT=3000
-
-# Token expiry in seconds (default: 3600 = 1 hour)
 TOKEN_EXPIRY=3600
 ```
 
-## Usage
+> If `.env` does not load in your setup, define environment variables inline before running Bun or Node.
 
-### Basic Terminal
+---
 
-Once connected, you have a full interactive shell:
+## 🧑‍💻 Usage
+
+### 🖥 Basic Terminal
 
 ```bash
-# Run any command
 ls -la
 echo "Hello from WebTerm"
-
-# Start interactive applications
 vim myfile.txt
 nano config.ini
 top
 htop
 ```
 
-### File Upload
+### 📂 File Upload
 
-Simply drag and drop files from your desktop into the browser window. Files will be uploaded to the current working directory.
+Drag and drop files into the browser.
+Files upload to the current working directory.
 
-### Keyboard Shortcuts
+### ⌨ Keyboard Shortcuts
 
-All standard terminal shortcuts work:
-- `CTRL+C` - Interrupt current process
-- `CTRL+Z` - Suspend current process
-- `CTRL+D` - End of file / logout
-- `TAB` - Auto-completion
-- `↑/↓` - Command history
+| Shortcut | Action            |
+| -------- | ----------------- |
+| CTRL + C | Interrupt process |
+| CTRL + Z | Suspend           |
+| CTRL + D | Logout / EOF      |
+| TAB      | Auto-complete     |
+| ↑ / ↓    | Command history   |
 
-## Security Notes
+---
 
-- **No Root Access**: Runs under current user permissions only
-- **No Sudo**: Cannot execute privileged commands
-- **Token Authentication**: All connections require valid HMAC token
-- **Rate Limiting**: 1000 messages per minute per session
-- **Auto Cleanup**: PTY processes cleaned up on disconnect
+## 🔐 Security Notes
 
-## Architecture
+> WebTerm prioritizes safety without restricting usability.
+
+* Runs using current user permissions only
+* No sudo / no privilege escalation
+* HMAC-secured token authentication
+* 1000 messages/minute rate limit
+* PTY auto-cleanup on disconnect
+
+---
+
+## 🧱 Architecture
 
 ```
 WebTerm
 ├── Client (Browser)
-│   ├── xterm.js - Terminal rendering
-│   ├── WebSocket client - Communication
-│   └── File upload handler
-│
+│   ├── xterm.js
+│   ├── WebSocket client
+│   └── Upload handler
 ├── WebSocket Server
 │   ├── Authentication
 │   ├── Rate limiting
-│   └── Message routing
-│
+│   └── Routing
 └── PTY Manager
     ├── Shell detection
-    ├── Process spawning
+    ├── Spawn handling
     └── TTY management
 ```
 
-## Troubleshooting
+---
 
-### "No authentication token provided"
+## 🩺 Troubleshooting
 
-Add the token parameter to the URL: `http://localhost:3000/?token=YOUR_TOKEN`
+### ❌ Missing authentication token
 
-### Terminal doesn't resize properly
+Append:
 
-Try refreshing the browser window. The terminal should auto-fit on load.
-
-### Colors not showing
-
-Ensure your shell config files are properly sourced. WebTerm uses `xterm-256color` terminal type.
-
-### File upload not working
-
-Check browser console for errors. Ensure files are not too large (10MB limit).
-
-## Development
-
-```bash
-# Build and run in development mode
-bun run dev
-
-# This will:
-# 1. Build the project
-# 2. Start the server
+```
+?token=YOUR_TOKEN
 ```
 
-## License
+### 🪟 Terminal not resizing
+
+Refresh browser.
+
+### 🎨 Missing colors
+
+Ensure shell config sources correctly.
+Uses `xterm-256color`.
+
+### 📁 Upload failing
+
+Check browser console and ensure file ≤ 10MB.
+
+---
+
+## 🧪 Development
+
+```bash
+bun run dev
+```
+
+Builds and runs development server.
+
+---
+
+## 📜 License
 
 MIT
 
-## Technical Details
+---
 
-- **Frontend**: xterm.js with WebGL acceleration
-- **Backend**: Node.js with node-pty
-- **Transport**: WebSocket (no polling)
-- **Bundler**: esbuild
-- **Package Manager**: Bun
-- **Language**: TypeScript (strict mode)
+## 📚 Technical Details
+
+| Component       | Technology          |
+| --------------- | ------------------- |
+| Frontend        | xterm.js + WebGL    |
+| Backend         | Node.js + node-pty  |
+| Transport       | WebSocket           |
+| Bundler         | esbuild             |
+| Package Manager | Bun                 |
+| Language        | TypeScript (strict) |
+
+---
+
+Happy hacking 🔧
+
+كده README بقى corporate level… شكل واحد Enterprise بيقبض بالدولار كتبه.
+```
