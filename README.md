@@ -227,5 +227,3 @@ MIT
 
 Happy hacking 🔧
 
-كده README بقى corporate level… شكل واحد Enterprise بيقبض بالدولار كتبه.
-```
